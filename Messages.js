@@ -24,5 +24,8 @@ Fax.    : 866-567-1010\rZPP|-------------------------------------\rZPP|Name.
 const hl7Message2 = `MSH|^~\\&|Sender|Receiver|App|Facility|202407191249|
 |ADT^A01|MsgID|P|2.5|PID|1|PtID12345^5^M11||DOE^JOHN^A||19800101|M|PV1|
 1|I|MainWard^123^Bed1^||ATTND123^DOE^JANE|ADM|MED|`; // 2. ADT^A02 (Patient Transfer)
-const hl7Message3 = `MSH|^~\\&|Sender|Receiver|App|Facility|202407191249||ADT^A02|MsgID|P|2.5|PID|1|PtID12345^5^M11||DOE^JOHN^A||19800101|M|PV1|1|I|MainWard^123^Bed1^||ATTND123^DOE^JANE|ADM|MED|PV2|||MainWard^123^Bed1^|ER^456^Bed2^|`; // 3. ADT^A03 (Patient Discharge)
+const hl7Message3 = `MSH|^~\\&|Sender|Receiver|App|Facility|202407191249||ADT^A02|MsgID|P|2.5|
+PID|1|PtID12345^5^M11||DOE^JOHN^A||19800101|M|
+PV1|1|I|MainWard^123^Bed1^||ATTND123^DOE^JANE|ADM|MED|
+PV2|||MainWard^123^Bed1^|ER^456^Bed2^|`; // 3. ADT^A03 (Patient Discharge)
 const hl7Message4 = `MSH|^~\\&|Sender|Receiver|App|Facility|202407191249||ADT^A03|MsgID|P|2.5|PID|1|PtID12345^5^M11||DOE^JOHN^A||19800101|M|PV1|1|D|MainWard^123^Bed1^||ATTND123^DOE^JANE|ADM|MED|`;
