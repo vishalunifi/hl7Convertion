@@ -4,11 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "b": "nodemon hl7Server7.js",
-    "hl71": "nodemon hl7.js",
-    "a": "nodemon hl7Server5.js",
-    "map": "nodemon hl7Mapping2.js",
-    "c": "nodemon hl7Server9.js"
+    "hl7": "nodemon hl7Server9.js"
   },
   "keywords": [],
   "author": "",

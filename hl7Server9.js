@@ -1,3 +1,7 @@
+const hl7Message2 = `MSH|^~\\&|Sender|Receiver|App|Facility|202407191249||ADT^A01|MsgID|P|2.5|PID|1|PtID12345^5^M11||DOE^JOHN^A||19800101|M|PV1|1|I|MainWard^123^Bed1^||ATTND123^DOE^JANE|ADM|MED|`; // 2. ADT^A02 (Patient Transfer)
+const hl7Message3 = `MSH|^~\\&|Sender|Receiver|App|Facility|202407191249||ADT^A02|MsgID|P|2.5|PID|1|PtID12345^5^M11||DOE^JOHN^A||19800101|M|PV1|1|I|MainWard^123^Bed1^||ATTND123^DOE^JANE|ADM|MED|PV2|||MainWard^123^Bed1^|ER^456^Bed2^|`; // 3. ADT^A03 (Patient Discharge)
+const hl7Message4 = `MSH|^~\\&|Sender|Receiver|App|Facility|202407191249||ADT^A03|MsgID|P|2.5|PID|1|PtID12345^5^M11||DOE^JOHN^A||19800101|M|PV1|1|D|MainWard^123^Bed1^||ATTND123^DOE^JANE|ADM|MED|`;
+
 function parseHL7Message(hl7Message) {
   const segments = hl7Message.split(/\r|\n/);
   // Filter out empty segments
@@ -71,6 +75,8 @@ function convertToCustomJSON(parsedMessage) {
       HospitalService: msh[27],
     };
   }
+
+  return result;
 }
 
 // Test with hl7Message2
@@ -87,3 +93,54 @@ console.log("Output for hl7Message3:", JSON.stringify(customJSON3, null, 2));
 const parsedMessage4 = parseHL7Message(hl7Message4);
 const customJSON4 = convertToCustomJSON(parsedMessage4);
 console.log("Output for hl7Message4:", JSON.stringify(customJSON4, null, 2));
+// Expected output
+// {
+//   "MSH": {
+//     "FieldSeparator": "|",
+//     "EncodingCharacters": "^~\\&",
+//     "SendingApplication": "Sender",
+//     "ReceivingApplication": "Receiver",
+//     "SendingFacility": "App",
+//     "ReceivingFacility": "Facility",
+//     "DateTimeOfMessage": "202407191249",
+//     "Security": "",
+//     "MessageType": {
+//       "MessageCode": "ADT",
+//       "TriggerEvent": "A01"
+//     },
+//     "MessageControlID": "MsgID",
+//     "ProcessingID": "P",
+//     "VersionID": "2.5"
+//   },
+//   "PID": {
+//     "SetID": "1",
+//     "PatientID": {
+//       "ID": "PtID12345",
+//       "CheckDigit": "5",
+//       "CheckDigitScheme": "M11"
+//     },
+//     "PatientName": {
+//       "FamilyName": "DOE",
+//       "GivenName": "JOHN",
+//       "MiddleInitialOrName": "A"
+//     },
+//     "DateTimeOfBirth": "19800101",
+//     "Sex": "M"
+//   },
+//   "PV1": {
+//     "SetID": "1",
+//     "PatientClass": "I",
+//     "AssignedPatientLocation": {
+//       "PointOfCare": "MainWard",
+//       "Room": "123",
+//       "Bed": "Bed1"
+//     },
+//     "AttendingDoctor": {
+//       "ID": "ATTND123",
+//       "FamilyName": "DOE",
+//       "GivenName": "JANE"
+//     },
+//     "AdmitSource": "ADM",
+//     "HospitalService": "MED"
+//   }
+// }
